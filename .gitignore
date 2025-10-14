@@ -1,0 +1,18 @@
+#folder Virtual Environment Python
+venv/
+/venv/
+
+#folder model hasil fine-tuning yang berukuran besar
+hasil_model_latest/
+
+# File cache dan compiled Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# File spesifik sistem operasi
+Thumbs.db
+
+# Log file yang mungkin dihasilkan oleh aplikasi
+*.log
