@@ -1,78 +1,78 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aplikasi Deteksi Potensi Hoaks</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-
-    <div class="container" id="input-section">
-      <h1>Aplikasi Deteksi Potensi Hoaks</h1>
-      <p class="subtitle">
-        Aplikasi ini merupakan implementasi IndoBERT Fine-tuning untuk analisis
-        potensi berita hoaks
-      </p>
-      <h3>Masukkan detail berita untuk analisis!</h3>
-
-
-      <div class="form-group">
-        <label for="judul">Masukkan judul berita <span class="required">*</span></label>
-        <input
-          type="text"
-          id="judul"
-          placeholder="Contoh: Pemerintah bagikan kuota gratis..."
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="isi">Masukkan isi berita <span class="required">*</span></label>
-        <textarea
-          id="isi"
-          placeholder="Salin dan tempel isi lengkap berita di sini..."
-        ></textarea>
-      </div>
-
-      <button onclick="cekHoax()">Analisis Berita</button>
-    </div>
-
-    <div id="hasil-section" style="display: none"></div>
-    
-    <div id="loading">
-      <div class="loader"></div>
-      <p>Analisis berita sedang diproses...</p>
-    </div>
-
-    <!--pop up error-->
-    <div id="errorModal" class="modal-overlay">
-      <div class="modal-content">
-        <div class="modal-icon">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="48"
-            height="48"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="12"></line>
-            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-          </svg>
-        </div>
-        <h3>Terjadi Kesalahan</h3>
-        <p id="modalErrorMessage"></p>
-        <button class="modal-button" onclick="sembunyikanModalError()">
-          Close
+    <title>Beranda - Aplikasi Deteksi Potensi Hoaks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+    <header>
+      <nav class="navbar">
+        <a href="index.html" class="nav-brand">DeteksiHoaks</a>
+        <button class="hamburger-menu" id="hamburger-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
         </button>
-      </div>
-    </div>
-
-    <footer>©2025 Henokh • Universitas Tarumanagara</footer>
-
-    <script src="script.js"></script>
-  </body>
+        <div class="nav-links" id="nav-links">
+            <a href="index.html" class="active">Beranda</a>
+            <a href="deteksi.html">Deteksi</a>
+            <a href="petunjuk.html">Petunjuk</a> 
+            <a href="tentang.html">Tentang</a>
+        </div>
+      </nav>
+    </header>
+    <main>
+        <section class="hero-section">
+            <h1>Aplikasi Web Deteksi Potensi Berita Hoaks Berbahasa Indonesia</h1>
+            <p>
+                Analisis berita secara cerdas menggunakan teknologi LLM IndoBERT yang sudah di fine tune untuk membantu
+                sebagai identifikasi awal informasi yang meragukan sebelum mempercayai atau menyebarkannya.
+            </p>
+            <a href="deteksi.html" class="button-utama">Mulai Analisis</a>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-container"> 
+            <div class="footer-column">
+                <h3>DeteksiHoaks</h3>
+                <p>
+                    Proyek skripsi untuk mendeteksi potensi hoaks berbahasa Indonesia
+                    menggunakan teknologi Natural Language Processing (NLP). Dengan metode fine tuning terhadap model IndoBERT Base P1
+                </p>
+            </div>
+            <div class="footer-column">
+                <h3>Tautan Cepat</h3>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="deteksi.html">Deteksi</a></li>
+                    <li><a href="petunjuk.html">Petunjuk Penggunaan</a></li>
+                    <li><a href="tentang.html">Tentang Proyek</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Informasi</h3>
+                <img src="assets/images/logo-fti.png" alt="Logo FTI Untar" class="footer-logo">
+                <p>
+                    <strong>Dosen Pembimbing:</strong><br>
+                     Viny Christanti Mawardi, M.Kom.<br>
+                     Irvan Lewenusa, M.Kom.
+                </p>
+                <p>
+                    <strong>Universitas Tarumanagara</strong><br>
+                    Jl. Letjen S. Parman No. 1<br>
+                    Jakarta Barat, 11440
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>©2025 Henokh Mikhael Kristiantan - 535220154</p>
+        </div>
+    </footer>
+    <script src="assets/js/script.js"></script>
+    </body>
 </html>
