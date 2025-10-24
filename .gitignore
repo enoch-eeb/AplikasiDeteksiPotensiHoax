@@ -4,6 +4,7 @@ venv/
 
 #folder model hasil fine-tuning yang berukuran besar
 hasil_model_latest/
+model_fineTuned_final/
 
 # File cache dan compiled Python
 __pycache__/
