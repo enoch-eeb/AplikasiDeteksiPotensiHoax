@@ -714,6 +714,42 @@ footer {
   }
 }
 
+.hasil-card.export-mode {
+  flex-direction: row !important;
+  text-align: left !important;
+  max-width: 900px !important; 
+  width: 90% !important;
+  gap: 30px !important;
+}
+
+.hasil-card.export-mode .hasil-kanan {
+  border-left: 1px solid #eee !important;
+  padding-left: 30px !important;
+  text-align: center !important;
+}
+
+.hasil-card.export-mode .isi-berita-desktop {
+  max-height: 300px !important;
+  text-align: justify !important;
+}
+
+.hasil-card.export-mode .hasil-kiri {
+  text-align: left !important;
+}
+
+.hasil-card.export-mode .hasil-tombol-grup {
+  justify-content: center !important;
+}
+.hasil-card.export-mode .hasil-kiri button {
+  width: auto !important; 
+  align-self: center !important;
+}
+
+.hasil-card.export-mode .isi-berita-desktop {
+  max-height: none !important; 
+  overflow-y: visible !important;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;

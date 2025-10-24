@@ -202,14 +202,23 @@ function exportToPDF() {
   if (tombolAnalisisGrup) tombolAnalisisGrup.style.display = 'none';
   if (tombolExport) tombolExport.style.display = 'none';
 
-  html2pdf().from(element).set(opt).save()
-    .catch(err => {
-      console.error('Gagal membuat PDF:', err);
-      tampilkanModalError('Gagal membuat file PDF. Silakan coba lagi.');
-    })
-    .finally(() => {
-      if (tombolAnalisisGrup) tombolAnalisisGrup.style.display = 'flex';
-      if (tombolExport) tombolExport.style.display = 'block';
-      if (loading) loading.style.display = 'none';
-    });
+  element.classList.add('export-mode'); 
+
+  setTimeout(() => {
+    
+    html2pdf().from(element).set(opt).save()
+      .catch(err => {
+        console.error('Gagal membuat PDF:', err);
+        tampilkanModalError('Gagal membuat file PDF. Silakan coba lagi.');
+      })
+      .finally(() => {
+        if (tombolAnalisisGrup) tombolAnalisisGrup.style.display = 'flex';
+        if (tombolExport) tombolExport.style.display = 'block';
+
+        element.classList.remove('export-mode');
+      
+        if (loading) loading.style.display = 'none';
+      });
+
+  }, 50);
 }
