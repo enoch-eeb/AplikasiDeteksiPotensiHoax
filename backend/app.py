@@ -25,11 +25,11 @@ def ratelimit_handler(e):
 limiter.init_app(app)
 limiter.on_breach = ratelimit_handleron_breach=ratelimit_handler
 
-
+#konfigurasi logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 #load model hasil fine tune
-MODEL_PATH = "hasil_model_latest"
+MODEL_PATH = "model_fineTuned_final"
 try:
     tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
@@ -60,6 +60,14 @@ def run_model_prediction(clean_text: str) -> tuple[str, float]:
     confidence_score = probs[predicted_class_id].item()
     return predicted_label, confidence_score
 
+def detect_language(text: str) -> str | None:
+    try:
+        if len(text.split()) > 2:
+            return detect(text)
+    except LangDetectException:
+        app.logger.info(f"Language detection failed for text: '{text[:50]}...'")
+    return None
+
 #fungsi untuk validasi input
 def validate_input(data: dict) -> tuple[str | None, tuple[dict, int] | None]:
 
@@ -74,20 +82,26 @@ def validate_input(data: dict) -> tuple[str | None, tuple[dict, int] | None]:
             "error": message
             }), 400)
 
-    combined_text = f"{title}. {content}"
-
-    #validasi maksimum panjang input karakter
-    MAX_LENGTH = 10000
-    if len(combined_text) > MAX_LENGTH:
-        message = f"Teks terlalu panjang. Maksimal {MAX_LENGTH} karakter."
-        app.logger.warning(message)
-        return None, (jsonify({
-            "status code": 400,
-            "error": message
-            }), 400)
-
     #text preprocessing
-    cleaned_text = preprocess_text(combined_text)
+    clean_title = preprocess_text(title)
+    clean_content = preprocess_text(content)
+    
+    #validasi penjagaan bahasa
+    try:
+        if (clean_title and detect(clean_title) != 'id') or \
+           (clean_content and detect(clean_content) != 'id'):
+            message = "Bahasa tidak didukung. Harap pastikan judul dan isi dalam Bahasa Indonesia."
+            app.logger.warning(message)
+            return None, (jsonify({
+                "status code": 422,
+                "error": message
+                }), 422)
+    except LangDetectException:
+        app.logger.info("Language detection failed (likely due to short text), skipping check.")
+        pass
+
+    combined_text = f"{title}. {content}"
+    cleaned_text = f"{clean_title} {clean_content}"
 
     #validasi teks tidak clean
     if not cleaned_text:
@@ -108,18 +122,15 @@ def validate_input(data: dict) -> tuple[str | None, tuple[dict, int] | None]:
             "error": message
             }), 400)
 
-    #validasi penjagaan bahasa
-    try:
-        if detect(cleaned_text) != 'id':
-            message = "Bahasa tidak didukung. Harap masukkan teks dalam Bahasa Indonesia."
-            app.logger.warning(message)
-            return None, (jsonify({
-                "status code": 422,
-                "error": message
-                }), 422)
-    except LangDetectException:
-        app.logger.info("Language detection failed (likely due to short text), skipping check.")
-        pass
+    #validasi maksimum panjang input karakter
+    MAX_LENGTH = 10000
+    if len(combined_text) > MAX_LENGTH:
+        message = f"Teks terlalu panjang. Maksimal {MAX_LENGTH} karakter."
+        app.logger.warning(message)
+        return None, (jsonify({
+            "status code": 400,
+            "error": message
+            }), 400)
 
     return cleaned_text, None
 
@@ -130,63 +141,11 @@ def predict_route():
     try:
         data = request.get_json()
 
+        #declare fungsi validasi text
         cleaned_text, error_response = validate_input(data)
 
         if error_response:
             return error_response
-        
-        # #validasi input JSON
-        # title = data.get("title")
-        # content = data.get("content")
-
-        # if not title or not content:
-        #     app.logger.warning("Invalid input: 'title' or 'content' field is missing or empty.")
-        #     return jsonify({
-        #         "status code": 400,
-        #         "error": "Input tidak valid, field 'title' dan 'content' wajib diisi."
-        #         }), 400
-
-        # combined_text = f"{title}. {content}"
-        # cleaned_text = preprocess_text(combined_text)
-        
-        # #validasi minimum teks
-        # MINIMUM_WORDS = 10
-        # if len(cleaned_text.split()) < MINIMUM_WORDS:
-        #     app.logger.warning(f"Input is too short after preprocessing. Word count: {len(cleaned_text.split())}")
-        #     return jsonify({
-        #         "status code": 400,
-        #         "error": f"Input kata terlalu pendek. Harap masukkan setidaknya {MINIMUM_WORDS} kata yang valid."
-        #         }), 400
-
-        # #validasi text cleaning
-        # if not cleaned_text:
-        #     app.logger.warning("Input text becomes empty after preprocessing.")
-        #     return jsonify({
-        #         "status code": 400,
-        #         "error": "Input teks tidak mengandung kata yang bisa diproses."
-        #         }), 400
-
-        # #validasi bahasa indonesia
-        # try:
-        #     #deteksi bahasa dari teks yang sudah bersih
-        #     if detect(cleaned_text) != 'id':
-        #         app.logger.warning("Detected language is not Indonesian.")
-        #         return jsonify({
-        #             "status code": 422,
-        #             "error": "Bahasa tidak didukung. Harap masukkan teks dalam Bahasa Indonesia."
-        #             }), 422
-        # except LangDetectException:
-        #     app.logger.info("Language detection failed (likely due to short text), skipping check.")
-        #     pass
-
-        # #validasi panjang teks
-        # MAX_LENGTH = 10000
-        # if len(combined_text) > MAX_LENGTH:
-        #     app.logger.warning(f"Input exceeds maximum length of {MAX_LENGTH} characters.")
-        #     return jsonify({
-        #         "status code": 400,
-        #         "error": f"Teks terlalu panjang. Maksimal {MAX_LENGTH} karakter."
-        #         }), 400
 
         label, confidence = run_model_prediction(cleaned_text)
         
@@ -194,6 +153,7 @@ def predict_route():
             "label": label,
             "confidence": round(confidence * 100, 2)
         }
+
         app.logger.info(f"Prediction successful: {response}")
         return jsonify(response), 200
 
