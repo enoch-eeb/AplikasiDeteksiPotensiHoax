@@ -121,6 +121,23 @@ def validate_input(data: dict) -> tuple[str | None, tuple[dict, int] | None]:
             "status code": 400,
             "error": message
             }), 400)
+            
+    #validasi jika user memasukkan angka terlalu banyak
+    words = cleaned_text.split()
+    numeric_word_count = 0
+    for word in words:
+        if word.isdigit():
+            numeric_word_count += 1
+    total_word_count = len(words)
+    MAX_NUMERIC_WORD_RATIO = 0.7 
+
+    if total_word_count > 0 and (numeric_word_count / total_word_count) > MAX_NUMERIC_WORD_RATIO:
+        message = "Input teks terdeteksi mengandung terlalu banyak angka dan kemungkinan bukan berita."
+        app.logger.warning(message)
+        return None, (jsonify({
+            "status code": 400,
+            "error": message
+            }), 400)
 
     #validasi maksimum panjang input karakter
     MAX_LENGTH = 10000
