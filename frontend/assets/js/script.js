@@ -178,24 +178,27 @@ function exportToPDF() {
     if (loading) loading.style.display = 'flex';
 
   const element = document.getElementById('hasil-pdf');
+  const wrapper = element.closest('.detection-wrapper');
   const tombolAnalisisGrup = document.getElementById('analisis-lagi-grup');
   const tombolExport = document.getElementById('export-pdf-button');
-
+  const bodyElement = document.body;
   const now = new Date();
   const year = now.getFullYear().toString().slice(-2);
   const month = (now.getMonth() + 1).toString().padStart(2, '0');
   const day = now.getDate().toString().padStart(2, '0');
   const counterPart = pdfExportCounter.toString().padStart(4, '0');
-
   const namaFile = `Hasil Analisis DeteksiHoaks - ${year}${month}${day}${counterPart}.pdf`;
-
   pdfExportCounter++;
 
   const opt = {
-    margin:       10,
-    filename:     namaFile,
-    image:        { type: 'jpeg', quality: 0.98 },
-    html2canvas:  { scale: 2 },
+    margin:      10,
+    filename:    namaFile,
+    image:       { type: 'jpeg', quality: 0.98 },
+    html2canvas: { 
+        scale: 2, 
+        useCORS: true,
+        scrollY: -window.scrollY
+    },
     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
 
@@ -203,6 +206,8 @@ function exportToPDF() {
   if (tombolExport) tombolExport.style.display = 'none';
 
   element.classList.add('export-mode'); 
+  if (wrapper) wrapper.classList.add('export-mode');
+  bodyElement.classList.add('pdf-export-active');
 
   setTimeout(() => {
     
@@ -211,14 +216,17 @@ function exportToPDF() {
         console.error('Gagal membuat PDF:', err);
         tampilkanModalError('Gagal membuat file PDF. Silakan coba lagi.');
       })
+
       .finally(() => {
         if (tombolAnalisisGrup) tombolAnalisisGrup.style.display = 'flex';
         if (tombolExport) tombolExport.style.display = 'block';
 
         element.classList.remove('export-mode');
-      
+          if (wrapper) wrapper.classList.remove('export-mode');
+            bodyElement.classList.remove('pdf-export-active');
+
         if (loading) loading.style.display = 'none';
       });
 
-  }, 50);
+  }, 400);
 }
