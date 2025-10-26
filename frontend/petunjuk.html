@@ -1,331 +1,374 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Petunjuk - Aplikasi Deteksi Potensi Hoaks</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petunjuk - Aplikasi Deteksi Potensi Hoaks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
 
-    <style>
-        .content-wrapper {
-            padding: 40px 20px;
-            box-sizing: border-box;
-            animation: fadeInUp 0.8s ease-out backwards;
-        }
+  <style>
+    .content-wrapper {
+      padding: 40px 20px;
+      box-sizing: border-box;
+      animation: fadeInUp 0.8s ease-out backwards;
+    }
 
-        .content-page {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            padding: 2rem 3rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            text-align: left;
-            box-sizing: border-box;
-        }
+    .content-page {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      padding: 2rem 3rem;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      text-align: left;
+      box-sizing: border-box;
+    }
 
-        .content-page h1 {
-            color: #2c3e50;
-            font-size: 2.5rem;
-            font-weight: 700;
-            border-bottom: 3px solid #4a90e2;
-            padding-bottom: 10px;
-            margin-bottom: 2rem;
-        }
+    .content-page h1 {
+      color: #2c3e50;
+      font-size: 2.5rem;
+      font-weight: 700;
+      border-bottom: 3px solid #4a90e2;
+      padding-bottom: 10px;
+      margin-bottom: 2rem;
+    }
 
-        .content-page h2 {
-            color: #333;
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
+    .content-page h2 {
+      color: #333;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
 
-        .content-page p {
-            line-height: 1.7;
-            color: #555;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .petunjuk-list {
-            list-style: none;
-            padding-left: 0;
-            counter-reset: step-counter; 
-        }
-        
-        .petunjuk-list li {
-            position: relative;
-            padding: 20px;
-            padding-left: 60px; 
-            margin-bottom: 15px;
-            background: #f8f9fa; 
-            border-radius: 8px;
-            border-left: 5px solid #4a90e2;
-        }
-        
-        .petunjuk-list li::before {
-            counter-increment: step-counter; 
-            content: counter(step-counter); 
-            
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            
-            background: #4a90e2;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: bold;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-        }
-        .faq-section {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #eee;
-        }
+    .content-page p {
+      line-height: 1.7;
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
 
-        .accordion-button {
-            background-color: #f8f9fa;
-            color: #333;
-            cursor: pointer;
-            padding: 18px 25px;
-            width: 100%;
-            border: none;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-            outline: none;
-            font-size: 1.1rem;
-            font-weight: 400;
-            transition: background-color 0.3s ease;
-            position: relative;
-        }
+    .petunjuk-list {
+      list-style: none;
+      padding-left: 0;
+      counter-reset: step-counter;
+    }
 
-        .accordion-button:hover, .accordion-button.active {
-            background-color: #f1f1f1;
-        }
+    .petunjuk-list li {
+      position: relative;
+      padding: 20px;
+      padding-left: 60px;
+      margin-bottom: 15px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 5px solid #4a90e2;
+    }
 
-        .accordion-button::after {
-            content: '❯';
-            font-size: 1.2rem;
-            color: #4a90e2;
-            position: absolute;
-            right: 25px;
-            transition: transform 0.3s ease;
-        }
+    .petunjuk-list li::before {
+      counter-increment: step-counter;
+      content: counter(step-counter);
 
-        .accordion-button.active::after {
-            transform: rotate(90deg);
-        }
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
 
-        .accordion-panel {
-            padding: 0 25px;
-            background-color: white;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        
-        .accordion-panel p {
-            padding-top: 15px;
-            padding-bottom: 15px;
-            font-size: 0.95rem;
-        }
+      background: #4a90e2;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+    }
 
-        .faq-section {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #ccc;
-        }
+    .faq-section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #eee;
+    }
 
-        .accordion-button {
-            background-color: #f8f9fa;
-            color: #333;
-            cursor: pointer;
-            padding: 18px 25px;
-            width: 100%;
-            border: none;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-            outline: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-            position: relative;
-        }
+    .accordion-button {
+      background-color: #f8f9fa;
+      color: #333;
+      cursor: pointer;
+      padding: 18px 25px;
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+      outline: none;
+      font-size: 1.1rem;
+      font-weight: 400;
+      transition: background-color 0.3s ease;
+      position: relative;
+    }
 
-        .accordion-button:hover, .accordion-button.active {
-            background-color: #f1f1f1;
-        }
+    .accordion-button:hover,
+    .accordion-button.active {
+      background-color: #f1f1f1;
+    }
 
-        .accordion-button::after {
-            content: '❯'; 
-            font-size: 1.2rem;
-            color: #4a90e2;
-            position: absolute;
-            right: 25px;
-            transition: transform 0.3s ease;
-        }
+    .accordion-button::after {
+      content: '❯';
+      font-size: 1.2rem;
+      color: #4a90e2;
+      position: absolute;
+      right: 25px;
+      transition: transform 0.3s ease;
+    }
 
-        .accordion-button.active::after {
-            transform: rotate(90deg);
-        }
+    .accordion-button.active::after {
+      transform: rotate(90deg);
+    }
 
-        .accordion-panel {
-            padding: 0 25px;
-            background-color: white;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        
-        .accordion-panel p {
-            padding-top: 15px;
-            padding-bottom: 15px;
-            font-size: 0.95rem;
-        }
+    .accordion-panel {
+      padding: 0 25px;
+      background-color: white;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
 
-        @media (max-width: 600px) {
-            .content-wrapper {
-                margin-top: 60px;
-                padding: 30px 15px;
-            }
-            .content-page {
-                padding: 1.5rem;
-            }
-            .content-page h1 {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
-    </head>
+    .accordion-panel p {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      font-size: 0.95rem;
+    }
+
+    .faq-section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #ccc;
+    }
+
+    .accordion-button {
+      background-color: #f8f9fa;
+      color: #333;
+      cursor: pointer;
+      padding: 18px 25px;
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+      outline: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      position: relative;
+    }
+
+    .accordion-button:hover,
+    .accordion-button.active {
+      background-color: #f1f1f1;
+    }
+
+    .accordion-button::after {
+      content: '❯';
+      font-size: 1.2rem;
+      color: #4a90e2;
+      position: absolute;
+      right: 25px;
+      transition: transform 0.3s ease;
+    }
+
+    .accordion-button.active::after {
+      transform: rotate(90deg);
+    }
+
+    .accordion-panel {
+      padding: 0 25px;
+      background-color: white;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .accordion-panel p {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      font-size: 0.95rem;
+    }
+
+    .button-download {
+      display: inline-block;
+      background-color: #4a90e2;
+      color: white;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+
+    }
+
+    .button-download:hover {
+      background-color: #357ab8;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 600px) {
+      .content-wrapper {
+        margin-top: 60px;
+        padding: 30px 15px;
+      }
+
+      .content-page {
+        padding: 1.5rem;
+      }
+
+      .content-page h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+
 <body>
 
-    <header>
-        <nav class="navbar">
-            <a href="index.html" class="nav-brand">DeteksiHoaks</a>
-            <button class="hamburger-menu" id="hamburger-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <div class="nav-links" id="nav-links">
-                <a href="index.html">Beranda</a>
-                <a href="deteksi.html">Deteksi</a>
-                <a href="petunjuk.html" class="active">Petunjuk</a>
-                <a href="tentang.html">Tentang</a>
-            </div>
-        </nav>
-    </header>
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">DeteksiHoaks</a>
+      <button class="hamburger-menu" id="hamburger-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Beranda</a>
+        <a href="deteksi.html">Deteksi</a>
+        <a href="petunjuk.html" class="active">Petunjuk</a>
+        <a href="tentang.html">Tentang</a>
+      </div>
+    </nav>
+  </header>
 
-    <main class="content-wrapper">
-        <div class="container content-page">
-            <h1>Petunjuk Penggunaan</h1>
-            
+  <main class="content-wrapper">
+    <div class="container content-page">
+      <h1>Petunjuk Penggunaan</h1>
+
+      <p>
+        Ikuti langkah-langkah sederhana di bawah ini untuk mulai
+        menganalisis potensi hoaks pada sebuah berita.
+      </p>
+
+      <a href="assets/docs/Manual Book Deteksi Hoaks.pdf" download="Manual Book - Deteksi Hoaks.pdf"
+        class="button-download">
+        Unduh Manual Book (PDF)
+      </a>
+
+      <ol class="petunjuk-list">
+        <li>
+          Buka halaman <strong>Deteksi</strong> melalui navigasi di bagian atas halaman.
+        </li>
+        <li>
+          Masukkan <strong>Judul Berita</strong> yang ingin Anda analisis pada kolom pertama yang tersedia.
+        </li>
+        <li>
+          Salin (copy) dan tempel (paste) <strong>Isi Berita</strong> secara lengkap pada kolom teks isi berita.
+        </li>
+        <li>
+          Klik tombol <strong>"Analisis Berita"</strong> untuk memulai proses deteksi.
+        </li>
+        <li>
+          Tunggu beberapa saat. Halaman akan menampilkan kartu hasil yang berisi kategori (Valid/Potensi Hoaks) beserta
+          <strong>Confidence Score</strong> dalam bentuk chart.
+        </li>
+        <li>
+          Untuk menganalisis berita baru, cukup klik tombol <strong>"Analisis Lagi"</strong>.
+        </li>
+      </ol>
+      <section class="faq-section">
+        <h2>Pertanyaan Umum (FAQ)</h2>
+
+        <div class="faq-container">
+          <button class="accordion-button">Apa itu IndoBERT?</button>
+          <div class="accordion-panel">
             <p>
-                Ikuti langkah-langkah sederhana di bawah ini untuk mulai 
-                menganalisis potensi hoaks pada sebuah berita.
+              <strong>IndoBERT</strong> adalah model LLM (Large Language Model) yang secara khusus dilatih menggunakan
+              miliaran kata dalam bahasa Indonesia.
+              Ini memungkinkannya untuk memahami konteks dan nuansa bahasa Indonesia jauh lebih baik daripada model
+              bahasa umum.
             </p>
+          </div>
 
-            <ol class="petunjuk-list">
-                <li>
-                    Buka halaman <strong>Deteksi</strong> melalui navigasi di bagian atas halaman.
-                </li>
-                <li>
-                    Masukkan <strong>Judul Berita</strong> yang ingin Anda analisis pada kolom pertama yang tersedia.
-                </li>
-                <li>
-                    Salin (copy) dan tempel (paste) <strong>Isi Berita</strong> secara lengkap pada kolom teks isi berita.
-                </li>
-                <li>
-                    Klik tombol <strong>"Analisis Berita"</strong> untuk memulai proses deteksi.
-                </li>
-                <li>
-                    Tunggu beberapa saat. Halaman akan menampilkan kartu hasil yang berisi kategori (Valid/Potensi Hoaks) beserta <strong>Confidence Score</strong> dalam bentuk chart.
-                </li>
-                <li>
-                    Untuk menganalisis berita baru, cukup klik tombol <strong>"Analisis Lagi"</strong>.
-                </li>
-            </ol>
-            <section class="faq-section">
-              <h2>Pertanyaan Umum (FAQ)</h2>
-              
-              <div class="faq-container">
-                  <button class="accordion-button">Apa itu IndoBERT?</button>
-                  <div class="accordion-panel">
-                      <p>
-                          <strong>IndoBERT</strong> adalah model LLM (Large Language Model) yang secara khusus dilatih menggunakan miliaran kata dalam bahasa Indonesia. 
-                          Ini memungkinkannya untuk memahami konteks dan nuansa bahasa Indonesia jauh lebih baik daripada model bahasa umum.
-                      </p>
-                  </div>
+          <button class="accordion-button">Bagaimana cara aplikasi ini menentukan hoaks?</button>
+          <div class="accordion-panel">
+            <p>
+              Aplikasi ini tidak "mengetahui" kebenaran, tetapi mengenali pola-pola, Model IndoBERT telah dilatih
+              fine-tuned pada ribuan artikel berita yang sudah dilabeli "Fakta" atau "Hoaks".
+              Model ini belajar mengidentifikasi pola-pola linguistik, gaya bahasa, dan penggunaan kata yang sering
+              muncul dalam berita hoaks (misalnya, bahasa yang terlalu provokatif, berlebihan, atau struktur kalimat
+              tertentu).
+            </p>
+          </div>
 
-                  <button class="accordion-button">Bagaimana cara aplikasi ini menentukan hoaks?</button>
-                  <div class="accordion-panel">
-                      <p>
-                          Aplikasi ini tidak "mengetahui" kebenaran, tetapi mengenali pola-pola, Model IndoBERT telah dilatih fine-tuned pada ribuan artikel berita yang sudah dilabeli "Fakta" atau "Hoaks". 
-                          Model ini belajar mengidentifikasi pola-pola linguistik, gaya bahasa, dan penggunaan kata yang sering muncul dalam berita hoaks (misalnya, bahasa yang terlalu provokatif, berlebihan, atau struktur kalimat tertentu).
-                      </p>
-                  </div>
-
-                  <button class="accordion-button">Apakah hasil deteksi 100% akurat?</button>
-                  <div class="accordion-panel">
-                      <p>
-                          <strong>Tidak.</strong> Penting untuk diingat bahwa ini adalah alat bantu prediksi berbasis statistik, bukan penentu kebenaran absolut. 
-                          Hasil "Potensi Hoaks Tinggi" berarti teks tersebut memiliki banyak karakteristik yang mirip dengan berita hoaks yang ada di data pelatihan. 
-                          Selalu lakukan cross-check dan verifikasi ulang dari berbagai sumber tepercaya.
-                      </p>
-                  </div>
-              </div>
-          </section>
-          
-      </div>
+          <button class="accordion-button">Apakah hasil deteksi 100% akurat?</button>
+          <div class="accordion-panel">
+            <p>
+              <strong>Tidak.</strong> Penting untuk diingat bahwa ini adalah alat bantu prediksi berbasis statistik,
+              bukan penentu kebenaran absolut.
+              Hasil "Potensi Hoaks Tinggi" berarti teks tersebut memiliki banyak karakteristik yang mirip dengan berita
+              hoaks yang ada di data pelatihan.
+              Selalu lakukan cross-check dan verifikasi ulang dari berbagai sumber tepercaya.
+            </p>
+          </div>
         </div>
-    </main>
+      </section>
 
-    <footer>
-      <div class="footer-container"> 
-          <div class="footer-column">
-              <h3>DeteksiHoaks</h3>
-              <p>
-                  Proyek skripsi untuk mendeteksi potensi hoaks berbahasa Indonesia
-                  menggunakan teknologi Natural Language Processing (NLP). Dengan metode fine tuning terhadap model IndoBERT Base P1
-              </p>
-          </div>
-          <div class="footer-column">
-              <h3>Tautan Cepat</h3>
-              <ul>
-                  <li><a href="index.html">Beranda</a></li>
-                  <li><a href="deteksi.html">Deteksi</a></li>
-                  <li><a href="petunjuk.html">Petunjuk Penggunaan</a></li>
-                  <li><a href="tentang.html">Tentang Proyek</a></li>
-              </ul>
-          </div>
-          <div class="footer-column">
-              <h3>Informasi</h3>
-              <img src="assets/images/logo-fti.png" alt="Logo FTI Untar" class="footer-logo">
-              <p>
-                  <strong>Dosen Pembimbing:</strong><br>
-                   Viny Christanti Mawardi, M.Kom.<br>
-                   Irvan Lewenusa, M.Kom.
-              </p>
-              <p>
-                  <strong>Universitas Tarumanagara</strong><br>
-                  Jl. Letjen S. Parman No. 1<br>
-                  Jakarta Barat, 11440
-              </p>
-          </div>
+    </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>DeteksiHoaks</h3>
+        <p>
+          Proyek skripsi untuk mendeteksi potensi hoaks berbahasa Indonesia
+          menggunakan teknologi Natural Language Processing (NLP). Dengan metode fine tuning terhadap model IndoBERT
+          Base P1
+        </p>
       </div>
-      <div class="footer-bottom">
-        <p>©2025 Henokh Mikhael Kristiantan - 535220154</p>
+      <div class="footer-column">
+        <h3>Tautan Cepat</h3>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="deteksi.html">Deteksi</a></li>
+          <li><a href="petunjuk.html">Petunjuk Penggunaan</a></li>
+          <li><a href="tentang.html">Tentang Proyek</a></li>
+        </ul>
       </div>
+      <div class="footer-column">
+        <h3>Informasi</h3>
+        <img src="assets/images/logo-fti.png" alt="Logo FTI Untar" class="footer-logo">
+        <p>
+          <strong>Dosen Pembimbing:</strong><br>
+          Viny Christanti Mawardi, M.Kom.<br>
+          Irvan Lewenusa, M.Kom.
+        </p>
+        <p>
+          <strong>Universitas Tarumanagara</strong><br>
+          Jl. Letjen S. Parman No. 1<br>
+          Jakarta Barat, 11440
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>©2025 Henokh Mikhael Kristiantan - 535220154</p>
+    </div>
   </footer>
 
-    <script src="assets/js/script.js"></script>
+  <script src="assets/js/script.js"></script>
 </body>
+
 </html>
