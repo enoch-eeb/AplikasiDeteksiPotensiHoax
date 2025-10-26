@@ -689,7 +689,6 @@ footer {
     width: 100%;
   }
 
-
   .modal-content {
     width: 80%; 
     padding: 1.5rem; 
@@ -711,6 +710,10 @@ footer {
 
   footer {
     padding: 40px 20px 0;
+  }
+  
+  #export-pdf-button {
+    display: none !important;
   }
 }
 
