@@ -728,13 +728,6 @@ body.pdf-export-active {
     min-height: 0 !important;
 }
 
-.detection-wrapper.export-mode {
-    display: block !important;
-    height: auto !important;
-    min-height: 0 !important;
-    padding: 10px !important; 
-}
-
 .hasil-card.export-mode {
     display: flex !important;
     flex-direction: row !important;
