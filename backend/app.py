@@ -1,4 +1,6 @@
 import re
+import json 
+import os
 import torch
 import logging
 from flask import Flask, request, jsonify
@@ -10,6 +12,27 @@ from langdetect import detect, LangDetectException
 
 app = Flask(__name__)
 CORS(app)
+
+app.config["JSON_SORT_KEYS"] = False
+
+#fungsi untuk memuat stopwords
+def load_stopwords(file_path):
+    try:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        json_path = os.path.join(base_dir, file_path)
+        
+        with open(json_path, 'r', encoding='utf-8') as f:
+            stopwords_list = json.load(f)
+            app.logger.info(f"Stopwords berhasil dimuat dari {file_path}")
+            return set(stopwords_list)
+
+    except FileNotFoundError:
+        app.logger.error(f"File stopwords {file_path} tidak ditemukan.")
+        return set()
+
+    except Exception as e:
+        app.logger.error(f"Error saat memuat stopwords: {e}")
+        return set()
 
 #limiter untuk mengatasi spam
 limiter = Limiter(
@@ -27,6 +50,10 @@ limiter.on_breach = ratelimit_handleron_breach=ratelimit_handler
 
 #konfigurasi logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+#load stopwords
+STOPWORDS_FILE_PATH = "stopwords-id.json"
+STOP_WORDS_ID_SET = load_stopwords(STOPWORDS_FILE_PATH)
 
 #load model hasil fine tune
 MODEL_PATH = "model_fineTuned_final"
@@ -68,6 +95,19 @@ def detect_language(text: str) -> str | None:
         app.logger.info(f"Language detection failed for text: '{text[:50]}...'")
     return None
 
+
+#fungsi untuk mengecek keselarasasan judul dan isi
+def cek_relevansi_judul_isi(clean_title: str, clean_content: str, min_overlap=1) -> bool:
+    title_words = set(word for word in clean_title.split() if word not in STOP_WORDS_ID_SET)
+    content_words = set(word for word in clean_content.split() if word not in STOP_WORDS_ID_SET)
+
+    if not title_words or not content_words:
+        return True
+
+    overlap = len(title_words.intersection(content_words))
+
+    return overlap >= min_overlap
+
 #fungsi untuk validasi input
 def validate_input(data: dict) -> tuple[str | None, tuple[dict, int] | None]:
 
@@ -85,6 +125,12 @@ def validate_input(data: dict) -> tuple[str | None, tuple[dict, int] | None]:
     #text preprocessing
     clean_title = preprocess_text(title)
     clean_content = preprocess_text(content)
+
+    #validasi relevansi judul dan isi
+    if not cek_relevansi_judul_isi(clean_title, clean_content):
+        message = "Judul dan isi berita terdeteksi tidak relevan."
+        app.logger.warning(message)
+        return None, (jsonify({"status code": 400, "error": message}), 400)
     
     #validasi penjagaan bahasa
     try:
