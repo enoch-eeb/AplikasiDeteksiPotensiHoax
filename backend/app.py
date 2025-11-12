@@ -47,7 +47,7 @@ def ratelimit_handler(e):
     }), 429
 limiter.init_app(app)
 limiter.on_breach = ratelimit_handleron_breach=ratelimit_handler
-
+  
 #konfigurasi logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
