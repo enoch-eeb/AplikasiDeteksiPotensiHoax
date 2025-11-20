@@ -63,7 +63,7 @@ async function cekHoax() {
 
   try {
     //fetch API
-     const response = await fetch("/assets/api/predict.js", {
+     const response = await fetch("/api/predict", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
