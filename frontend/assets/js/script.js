@@ -79,6 +79,11 @@ async function cekHoax() {
     }
 
     const data = await response.json();
+
+    if (data.error) {
+       throw new Error(data.error);
+    }
+    
     const confidence = data.confidence.toFixed(2);
     const label = data.label;
 
