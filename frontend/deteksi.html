@@ -4,133 +4,119 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Deteksi - Aplikasi Potensi Hoaks</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css" />
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   </head>
   <body>
     <header>
       <nav class="navbar">
         <a href="index.html" class="nav-brand">DeteksiHoaks</a>
-
         <button class="hamburger-menu" id="hamburger-menu">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
+          <span class="bar"></span><span class="bar"></span><span class="bar"></span>
         </button>
-
         <div class="nav-links" id="nav-links">
           <a href="index.html">Beranda</a>
           <a href="deteksi.html" class="active">Deteksi</a>
           <a href="petunjuk.html">Petunjuk</a> 
           <a href="tentang.html">Tentang</a>
-      </div>
+        </div>
       </nav>
     </header>
 
     <main class="detection-wrapper">
+      
       <div class="container" id="input-section">
         <h1>Aplikasi Deteksi Potensi Berita Hoaks</h1>
         <p class="subtitle">
-          Aplikasi ini merupakan implementasi IndoBERT Fine-tuning untuk
-          analisis potensi berita hoaks berbahasa Indonesia.
+          Aplikasi ini merupakan implementasi IndoBERT Fine-tuning untuk analisis
+          potensi berita hoaks berbahasa Indonesia.
         </p>
+        
+        <div style="text-align: right; margin-bottom: 10px;">
+            <button onclick="bukaModalScrape()" class="btn-link-trigger">
+                🔗 Isi Otomatis dari Link
+            </button>
+        </div>
+
         <h3>Masukkan detail berita untuk analisis!</h3>
 
         <div class="form-group">
           <label for="judul">Masukkan judul berita <span class="required">*</span></label>
-          <input
-            type="text"
-            id="judul"
-            placeholder="Contoh: Pemerintah bagikan kuota gratis..."
-          />
+          <input type="text" id="judul" placeholder="Contoh: Pemerintah bagikan kuota gratis..." />
         </div>
 
         <div class="form-group">
           <label for="isi">Masukkan isi berita <span class="required">*</span></label>
-          <textarea
-            id="isi"
-            placeholder="Salin dan tempel isi lengkap berita di sini..."
-          ></textarea>
+          <textarea id="isi" placeholder="Salin dan tempel isi lengkap berita di sini..."></textarea>
         </div>
 
         <button onclick="cekHoax()">Analisis Berita</button>
       </div>
 
       <div id="hasil-section" style="display: none"></div>
+      
       <div id="loading">
         <div class="loader"></div>
         <p id="loading-text">Analisis berita sedang diproses...</p>
       </div>
 
-      <!--pop up error-->
       <div id="errorModal" class="modal-overlay">
         <div class="modal-content">
           <div class="modal-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="12"></line>
-              <line x1="12" y1="16" x2="12.01" y2="16"></line>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
           </div>
           <h3>Terjadi Kesalahan</h3>
           <p id="modalErrorMessage"></p>
-          <button class="modal-button" onclick="sembunyikanModalError()">
-            Close
-          </button>
+          <button class="modal-button" onclick="sembunyikanModalError()">Close</button>
         </div>
       </div>
-    </main>
+
+      <div id="scrapeModal" class="modal-overlay">
+        <div class="modal-content" style="text-align: left;">
+            <h3 style="margin-top: 0;">Ambil Berita dari Link</h3>
+            <p style="margin-bottom: 10px;">Masukkan URL berita yang valid:</p>
+            
+            <input type="text" id="url-input-modal" placeholder="https://..." style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 6px;">
+            
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button onclick="tutupModalScrape()" style="background: #ccc; color: #333; width: auto; margin: 0; padding: 10px 20px;">Batal</button>
+                <button onclick="jalankanScrape()" style="background: #27ae60; width: auto; margin: 0; padding: 10px 20px;">Ambil Data</button>
+            </div>
+        </div>
+      </div>
+      </main>
 
     <footer>
-      <div class="footer-container"> 
-          <div class="footer-column">
-              <h3>DeteksiHoaks</h3>
-              <p>
-                  Proyek skripsi untuk mendeteksi potensi hoaks berbahasa Indonesia
-                  menggunakan teknologi Natural Language Processing (NLP). Dengan metode fine tuning terhadap model IndoBERT Base P1
-              </p>
-          </div>
-          <div class="footer-column">
-              <h3>Tautan Cepat</h3>
-              <ul>
-                  <li><a href="index.html">Beranda</a></li>
-                  <li><a href="deteksi.html">Deteksi</a></li>
-                  <li><a href="petunjuk.html">Petunjuk Penggunaan</a></li>
-                  <li><a href="tentang.html">Tentang Proyek</a></li>
-              </ul>
-          </div>
-          <div class="footer-column">
-              <h3>Informasi</h3>
-              <img src="assets/images/logo-fti.png" alt="Logo FTI Untar" class="footer-logo">
-              <p>
-                  <strong>Dosen Pembimbing:</strong><br>
-                   Viny Christanti Mawardi, M.Kom.<br>
-                   Irvan Lewenusa, M.Kom.
-              </p>
-              <p>
-                  <strong>Universitas Tarumanagara</strong><br>
-                  Jl. Letjen S. Parman No. 1<br>
-                  Jakarta Barat, 11440
-              </p>
-          </div>
-      </div>
-      <div class="footer-bottom">
-        <p>©2025 Henokh Mikhael Kristiantan - 535220154</p>
-      </div>
-  </footer>
+        <div class="footer-container"> 
+            <div class="footer-column">
+                <h3>DeteksiHoaks</h3>
+                <p>Proyek skripsi untuk mendeteksi potensi hoaks berbahasa Indonesia...</p>
+            </div>
+            <div class="footer-column">
+                <h3>Tautan Cepat</h3>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="deteksi.html">Deteksi</a></li>
+                    <li><a href="petunjuk.html">Petunjuk Penggunaan</a></li>
+                    <li><a href="tentang.html">Tentang Proyek</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Informasi</h3>
+                <img src="assets/images/logo-fti.png" alt="Logo FTI Untar" class="footer-logo">
+                <p><strong>Dosen Pembimbing:</strong><br>Viny Christanti Mawardi, M.Kom.<br>Irvan Lewenusa, M.Kom.</p>
+                <p><strong>Universitas Tarumanagara</strong><br>Jl. Letjen S. Parman No. 1<br>Jakarta Barat, 11440</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>©2025 Henokh Mikhael Kristiantan - 535220154</p>
+        </div>
+    </footer>
 
     <script src="assets/js/script.js"></script>
   </body>

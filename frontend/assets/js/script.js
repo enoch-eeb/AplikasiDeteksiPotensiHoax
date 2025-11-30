@@ -236,3 +236,66 @@ function exportToPDF() {
 
   }, 400);
 }
+
+// ===== LOGIKA SCRAPING DARI MODAL =====
+
+function bukaModalScrape() {
+  const modal = document.getElementById('scrapeModal');
+  if (modal) modal.classList.add('visible');
+}
+
+function tutupModalScrape() {
+  const modal = document.getElementById('scrapeModal');
+  if (modal) modal.classList.remove('visible');
+  // Kosongkan input saat ditutup
+  document.getElementById('url-input-modal').value = '';
+}
+
+async function jalankanScrape() {
+  const urlInput = document.getElementById('url-input-modal');
+  const url = urlInput.value;
+  
+  // Ambil elemen lain
+  const judulInput = document.getElementById('judul');
+  const isiInput = document.getElementById('isi');
+  const loadingText = document.getElementById('loading-text');
+  const loading = document.getElementById("loading");
+
+  if (!url) {
+      alert("Mohon masukkan URL berita!");
+      return;
+  }
+
+  // 1. Tutup modal dulu
+  tutupModalScrape();
+
+  // 2. Tampilkan Loading
+  if (loadingText) loadingText.textContent = "Sedang mengambil berita dari link...";
+  if (loading) loading.style.display = "flex";
+
+  try {
+      // 3. Kirim ke Backend
+      const response = await fetch("http://127.0.0.1:5000/scrape", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: url })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+          throw new Error(data.error || "Gagal mengambil berita");
+      }
+
+      // 4. Isi Form Otomatis
+      judulInput.value = data.title || "";
+      isiInput.value = data.content || "";
+
+  } catch (error) {
+      console.error(error);
+      tampilkanModalError("Gagal mengambil berita: " + error.message);
+  } finally {
+      // 5. Sembunyikan Loading
+      if (loading) loading.style.display = "none";
+  }
+}

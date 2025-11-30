@@ -715,6 +715,7 @@ footer {
   #export-pdf-button {
     display: none !important;
   }
+
 }
 
 body.pdf-export-active header,
@@ -828,4 +829,21 @@ body.pdf-export-active {
     margin-bottom: 20px; 
   }
 
+}
+/* Tombol kecil untuk memicu modal link */
+.btn-link-trigger {
+  background: transparent;
+  color: #4a90e2;
+  border: 1px solid #4a90e2;
+  font-size: 0.85rem;
+  padding: 5px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 0; /* Override default button margin */
+}
+
+.btn-link-trigger:hover {
+  background: #4a90e2;
+  color: white;
 }
