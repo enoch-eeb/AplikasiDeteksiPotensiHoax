@@ -9,6 +9,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from langdetect import detect, LangDetectException
+from newspaper import Article
 
 app = Flask(__name__)
 CORS(app)
@@ -225,6 +226,28 @@ def predict_route():
         return jsonify({
             "status code": 500,
             "error": f"Terjadi kesalahan di server: {str(e)}"}), 500
+
+@app.route('/scrape', methods=['POST'])
+def scrape_news():
+    data = request.get_json()
+    url = data.get('url')
+
+    if not url:
+        return jsonify({'error': 'URL tidak boleh kosong'}), 400
+
+    try:
+        article = Article(url)
+        article.download()
+        article.parse()
+
+        return jsonify({
+            'title': article.title,
+            'content': article.text
+        })
+
+    except Exception as e:
+        print(f"Error scraping: {e}")
+        return jsonify({'error': 'Gagal mengambil berita. Pastikan link valid.'}), 500
 
 if __name__ == "__main__":
     app.run(debug=False, host='0.0.0.0', port=5000)
