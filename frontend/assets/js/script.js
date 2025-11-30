@@ -237,8 +237,6 @@ function exportToPDF() {
   }, 400);
 }
 
-// ===== LOGIKA SCRAPING DARI MODAL =====
-
 function bukaModalScrape() {
   const modal = document.getElementById('scrapeModal');
   if (modal) modal.classList.add('visible');
@@ -247,7 +245,6 @@ function bukaModalScrape() {
 function tutupModalScrape() {
   const modal = document.getElementById('scrapeModal');
   if (modal) modal.classList.remove('visible');
-  // Kosongkan input saat ditutup
   document.getElementById('url-input-modal').value = '';
 }
 
@@ -255,7 +252,6 @@ async function jalankanScrape() {
   const urlInput = document.getElementById('url-input-modal');
   const url = urlInput.value;
   
-  // Ambil elemen lain
   const judulInput = document.getElementById('judul');
   const isiInput = document.getElementById('isi');
   const loadingText = document.getElementById('loading-text');
@@ -266,16 +262,13 @@ async function jalankanScrape() {
       return;
   }
 
-  // 1. Tutup modal dulu
   tutupModalScrape();
 
-  // 2. Tampilkan Loading
   if (loadingText) loadingText.textContent = "Sedang mengambil berita dari link...";
   if (loading) loading.style.display = "flex";
 
   try {
-      // 3. Kirim ke Backend
-      const response = await fetch("http://127.0.0.1:5000/scrape", {
+      const response = await fetch(" https://untransmigrated-unimputable-kelli.ngrok-free.dev/scrape", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url: url })
@@ -287,7 +280,6 @@ async function jalankanScrape() {
           throw new Error(data.error || "Gagal mengambil berita");
       }
 
-      // 4. Isi Form Otomatis
       judulInput.value = data.title || "";
       isiInput.value = data.content || "";
 
@@ -295,7 +287,6 @@ async function jalankanScrape() {
       console.error(error);
       tampilkanModalError("Gagal mengambil berita: " + error.message);
   } finally {
-      // 5. Sembunyikan Loading
       if (loading) loading.style.display = "none";
   }
 }

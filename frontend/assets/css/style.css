@@ -830,7 +830,7 @@ body.pdf-export-active {
   }
 
 }
-/* Tombol kecil untuk memicu modal link */
+
 .btn-link-trigger {
   background: transparent;
   color: #4a90e2;
@@ -840,7 +840,7 @@ body.pdf-export-active {
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s;
-  margin-top: 0; /* Override default button margin */
+  margin-top: 0;
 }
 
 .btn-link-trigger:hover {
