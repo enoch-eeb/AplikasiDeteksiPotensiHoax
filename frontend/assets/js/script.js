@@ -268,7 +268,7 @@ async function jalankanScrape() {
   if (loading) loading.style.display = "flex";
 
   try {
-      const response = await fetch(" https://untransmigrated-unimputable-kelli.ngrok-free.dev/scrape", {
+      const response = await fetch("/api/scrape", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url: url })
