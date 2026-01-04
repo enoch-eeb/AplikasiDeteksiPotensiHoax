@@ -3,3 +3,6 @@ flask-cors
 torch
 transformers
 joblib
+requests
+beautifulsoup4
+pandas
