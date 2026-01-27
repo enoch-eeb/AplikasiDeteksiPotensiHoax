@@ -7,15 +7,22 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="assets/css/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   </head>
   <body>
+    
+    <div class="background-ornaments">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
     <header>
-      <nav class="navbar">
-        <a href="index.html" class="nav-brand">DeteksiHoaks</a>
+      <nav class="navbar glass-panel">
+        <a href="index.html" class="nav-brand">Deteksi<span class="highlight">Hoaks</span></a>
         <button class="hamburger-menu" id="hamburger-menu">
           <span class="bar"></span><span class="bar"></span><span class="bar"></span>
         </button>
@@ -30,91 +37,100 @@
 
     <main class="detection-wrapper">
       
-      <div class="container" id="input-section">
-        <h1>Aplikasi Deteksi Potensi Berita Hoaks</h1>
-        <p class="subtitle">
-          Aplikasi ini merupakan implementasi IndoBERT Fine-tuning untuk analisis
-          potensi berita hoaks berbahasa Indonesia.
-        </p>
+      <div class="container glass-card" id="input-section">
+        <div class="card-header">
+            <h1>Cek Kebenaran Berita</h1>
+            <p class="subtitle">
+              Tempelkan judul dan isi berita untuk menganalisis potensi hoaks menggunakan AI IndoBERT.
+            </p>
+        </div>
         
-        <div style="text-align: right; margin-bottom: 10px;">
+        <div class="action-bar-right">
             <button onclick="bukaModalScrape()" class="btn-link-trigger">
-                🔗 Isi Otomatis dari Link
+                 ⚡ Isi Otomatis dari Link
             </button>
         </div>
 
-        <h3>Masukkan detail berita untuk analisis!</h3>
+        <div class="form-content">
+            <div class="form-group">
+              <label for="judul">Judul Berita</label>
+              <input type="text" id="judul" placeholder="Masukkan judul utama berita..." autocomplete="off" />
+            </div>
 
-        <div class="form-group">
-          <label for="judul">Masukkan judul berita <span class="required">*</span></label>
-          <input type="text" id="judul" placeholder="Contoh: Pemerintah bagikan kuota gratis..." />
+            <div class="form-group">
+              <label for="isi">Isi Berita</label>
+              <textarea id="isi" placeholder="Salin dan tempel isi lengkap berita di sini..."></textarea>
+            </div>
+
+            <button onclick="cekHoax()" class="btn-primary-glass">🔍 Analisis Berita</button>
         </div>
-
-        <div class="form-group">
-          <label for="isi">Masukkan isi berita <span class="required">*</span></label>
-          <textarea id="isi" placeholder="Salin dan tempel isi lengkap berita di sini..."></textarea>
-        </div>
-
-        <button onclick="cekHoax()">Analisis Berita</button>
       </div>
 
       <div id="hasil-section" style="display: none"></div>
       
       <div id="loading">
-        <div class="loader"></div>
-        <p id="loading-text">Analisis berita sedang diproses...</p>
+        <div class="glass-loader">
+            <div class="spinner"></div>
+            <p id="loading-text">Sedang Menganalisis...</p>
+        </div>
       </div>
 
       <div id="errorModal" class="modal-overlay">
-        <div class="modal-content">
-          <div class="modal-icon">
+        <div class="modal-content glass-card-modal">
+          <div class="modal-icon error-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
           </div>
-          <h3>Terjadi Kesalahan</h3>
+          <h3>Oops!</h3>
           <p id="modalErrorMessage"></p>
-          <button class="modal-button" onclick="sembunyikanModalError()">Close</button>
+          <button class="modal-button" onclick="sembunyikanModalError()">Tutup</button>
         </div>
       </div>
 
       <div id="scrapeModal" class="modal-overlay">
-        <div class="modal-content" style="text-align: left;">
-            <h3 style="margin-top: 0;">Ambil Berita dari Link</h3>
-            <p style="margin-bottom: 10px;">Masukkan URL berita yang valid:</p>
+        <div class="modal-content glass-card-modal text-left">
+            <h3>🔗 Ambil dari URL</h3>
+            <p>Masukkan link berita valid untuk diambil isinya secara otomatis.</p>
             
-            <input type="text" id="url-input-modal" placeholder="https://..." style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 6px;">
+            <div class="input-wrapper">
+                <input type="text" id="url-input-modal" placeholder="https://www.contohberita.com/..." />
+            </div>
             
-            <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                <button onclick="tutupModalScrape()" style="background: #ccc; color: #333; width: auto; margin: 0; padding: 10px 20px;">Batal</button>
-                <button onclick="jalankanScrape()" style="background: #27ae60; width: auto; margin: 0; padding: 10px 20px;">Ambil Data</button>
+            <div class="modal-actions">
+                <button onclick="tutupModalScrape()" class="btn-secondary-glass">Batal</button>
+                <button onclick="jalankanScrape()" class="btn-primary-glass small">Ambil Data</button>
             </div>
         </div>
       </div>
-      </main>
+      
+    </main>
 
     <footer>
-        <div class="footer-container"> 
+        <div class="footer-container glass-panel-footer"> 
             <div class="footer-column">
-                <h3>DeteksiHoaks</h3>
-                <p>Proyek skripsi untuk mendeteksi potensi hoaks berbahasa Indonesia...</p>
+                <h3>Deteksi<span class="highlight">Hoaks</span></h3>
+                <p>Membangun ekosistem informasi digital Indonesia yang lebih sehat dan terpercaya dengan teknologi AI.</p>
             </div>
             <div class="footer-column">
-                <h3>Tautan Cepat</h3>
+                <h3>Navigasi</h3>
                 <ul>
                     <li><a href="index.html">Beranda</a></li>
                     <li><a href="deteksi.html">Deteksi</a></li>
-                    <li><a href="petunjuk.html">Petunjuk Penggunaan</a></li>
-                    <li><a href="tentang.html">Tentang Proyek</a></li>
+                    <li><a href="petunjuk.html">Petunjuk</a></li>
+                    <li><a href="tentang.html">Tentang</a></li>
                 </ul>
             </div>
             <div class="footer-column">
-                <h3>Informasi</h3>
-                <img src="assets/images/logo-fti.png" alt="Logo FTI Untar" class="footer-logo">
-                <p><strong>Dosen Pembimbing:</strong><br>Viny Christanti Mawardi, M.Kom.<br>Irvan Lewenusa, M.Kom.</p>
-                <p><strong>Universitas Tarumanagara</strong><br>Jl. Letjen S. Parman No. 1<br>Jakarta Barat, 11440</p>
+                <h3>Afiliasi</h3>
+                <div class="uni-info">
+                    <img src="assets/images/logo-fti.png" alt="Logo FTI Untar" class="footer-logo">
+                    <div>
+                        <p><strong>Universitas Tarumanagara</strong><br>Fakultas Teknologi Informasi</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>©2025 Henokh Mikhael Kristiantan - 535220154</p>
+            <p>© 2025 Henokh Mikhael Kristiantan - 535220154</p>
         </div>
     </footer>
 

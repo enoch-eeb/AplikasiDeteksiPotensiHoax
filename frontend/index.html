@@ -4,19 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Beranda - Aplikasi Deteksi Potensi Hoaks</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
+
+    <div class="background-ornaments">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
     <header>
-      <nav class="navbar">
-        <a href="index.html" class="nav-brand">DeteksiHoaks</a>
+      <nav class="navbar glass-panel">
+        <a href="index.html" class="nav-brand">Deteksi<span class="highlight">Hoaks</span></a>
         <button class="hamburger-menu" id="hamburger-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
         </button>
         <div class="nav-links" id="nav-links">
             <a href="index.html" class="active">Beranda</a>
@@ -26,23 +33,78 @@
         </div>
       </nav>
     </header>
-    <main>
-        <section class="hero-section">
-            <h1>Aplikasi Web Deteksi Potensi Berita Hoaks Berbahasa Indonesia</h1>
-            <p>
-                Analisis berita secara cerdas menggunakan teknologi LLM IndoBERT yang sudah di fine tune untuk membantu
-                sebagai identifikasi awal informasi yang meragukan sebelum mempercayai atau menyebarkannya.
-            </p>
-            <a href="deteksi.html" class="button-utama">Mulai Analisis</a>
+
+    <main class="home-wrapper">
+        <section class="hero-container">
+            
+            <div class="hero-text">
+                <div class="badge-new">✨ Versi Terbaru IndoBERT</div>
+                <h1>Lawan Disinformasi dengan <span class="text-gradient">Kecerdasan Buatan</span></h1>
+                <p>
+                    Analisis berita secara cerdas menggunakan teknologi <strong>Deep Learning IndoBERT</strong> yang telah dilatih khusus. Identifikasi dini informasi yang meragukan sebelum Anda mempercayai atau menyebarkannya.
+                </p>
+                <div class="hero-buttons">
+                    <a href="deteksi.html" class="btn-primary-glass large">🚀 Mulai Analisis Sekarang</a>
+                    <a href="petunjuk.html" class="btn-secondary-glass large">Pelajari Caranya</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="glass-card visual-card main-visual">
+                    <div class="icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                    </div>
+                    <h3>Verifikasi Cepat</h3>
+                    <p>Mendeteksi pola bahasa hoaks dalam hitungan detik.</p>
+                </div>
+
+                <div class="glass-card visual-card float-1">
+                    <div class="stat-number">98.6%</div>
+                    <div class="stat-label">Akurasi Model</div>
+                </div>
+
+                <div class="glass-card visual-card float-2">
+                    <div class="row-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                        <span>Deteksi Hoaks</span>
+                    </div>
+                </div>
+
+                <div class="glass-card visual-card float-3">
+                    <div class="row-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        <span>Berita Valid</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-grid">
+            <div class="glass-card feature-item">
+                <div class="feature-icon">⚡</div>
+                <h3>Respons Cepat</h3>
+                <p>Pemrosesan teks real-time dengan server GPU yang optimal.</p>
+            </div>
+            <div class="glass-card feature-item">
+                <div class="feature-icon">🧠</div>
+                <h3>Teknologi AI</h3>
+                <p>Menggunakan IndoBERT Base P1 yang di-finetune khusus bahasa Indonesia.</p>
+            </div>
+            <div class="glass-card feature-item">
+                <div class="feature-icon">🛡️</div>
+                <h3>Privasi Aman</h3>
+                <p>Kami tidak menyimpan data berita yang Anda periksa secara permanen.</p>
+            </div>
         </section>
     </main>
+
     <footer>
-        <div class="footer-container"> 
+        <div class="footer-container glass-panel-footer"> 
             <div class="footer-column">
-                <h3>DeteksiHoaks</h3>
+                <h3>Deteksi<span class="highlight">Hoaks</span></h3>
                 <p>
                     Proyek skripsi untuk mendeteksi potensi hoaks berbahasa Indonesia
-                    menggunakan teknologi Natural Language Processing (NLP). Dengan metode fine tuning terhadap model IndoBERT Base P1
+                    menggunakan teknologi Natural Language Processing (NLP).
                 </p>
             </div>
             <div class="footer-column">
@@ -56,23 +118,20 @@
             </div>
             <div class="footer-column">
                 <h3>Informasi</h3>
-                <img src="assets/images/logo-fti.png" alt="Logo FTI Untar" class="footer-logo">
-                <p>
-                    <strong>Dosen Pembimbing:</strong><br>
-                     Viny Christanti Mawardi, M.Kom.<br>
-                     Irvan Lewenusa, M.Kom.
-                </p>
-                <p>
-                    <strong>Universitas Tarumanagara</strong><br>
-                    Jl. Letjen S. Parman No. 1<br>
-                    Jakarta Barat, 11440
-                </p>
+                <div class="uni-info">
+                    <img src="assets/images/logo-fti.png" alt="Logo FTI Untar" class="footer-logo">
+                    <div>
+                        <p><strong>Universitas Tarumanagara</strong><br>Fakultas Teknologi Informasi</p>
+                        <p style="font-size: 0.8rem; margin-top: 5px;">Viny Christanti Mawardi, M.Kom.<br>Irvan Lewenusa, M.Kom.</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
             <p>©2025 Henokh Mikhael Kristiantan - 535220154</p>
         </div>
     </footer>
+
     <script src="assets/js/script.js"></script>
-    </body>
+</body>
 </html>
