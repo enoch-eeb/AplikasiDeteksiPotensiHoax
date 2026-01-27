@@ -1,208 +1,220 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tentang - Aplikasi Deteksi Potensi Hoaks</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        .content-wrapper {
-            padding: 40px 20px;
-            box-sizing: border-box;
-            animation: fadeInUp 0.8s ease-out backwards;
+        .about-wrapper {
+            min-height: 100vh;
+            padding-top: 120px;
+            padding-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-
         .content-page {
-            max-width: 800px;
+            width: 90%;
+            max-width: 900px;
+            padding: 50px;
+            border-radius: 24px;
+            animation: slideUp 0.6s ease-out;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            padding: 2rem 3rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            text-align: left;
-            box-sizing: border-box;
         }
-
         .content-page h1 {
-            color: #2c3e50;
-            font-size: 2.5rem;
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark-blue);
+            font-size: 2.2rem;
             font-weight: 700;
-            border-bottom: 3px solid #4a90e2;
-            padding-bottom: 10px;
-            margin-bottom: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 2px solid rgba(74, 144, 226, 0.3);
+            padding-bottom: 20px;
         }
-
-        .content-page h2 {
-            color: #333;
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .content-page p,
-        .content-page li {
-            line-height: 1.7;
-            color: #555;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
         .about-section {
-            margin-bottom: 2.5rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid #ccc;
+            margin-bottom: 40px;
         }
-        
-        .content-page section:last-of-type {
-            border-bottom: none;
+        .about-section:last-child {
             margin-bottom: 0;
-            padding-bottom: 0;
         }
-
-        .content-page ul {
-            padding-left: 10px;
-            list-style: none;
-        }
-
-        .content-page li {
-            position: relative;
-            padding-left: 30px;
-            margin-bottom: 10px;
-        }
-
-        .content-page li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            top: 2px;
-            color: #4a90e2;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .content-page li strong {
-            color: #2c3e50;
-        }
-
-        .content-page li a {
-            color: #4a90e2;
-            text-decoration: none;
+        .about-section h2 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark-blue);
+            font-size: 1.5rem;
             font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
-        .content-page li a:hover {
+        .about-section p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 1rem;
+            text-align: justify;
+        }
+        .tech-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .tech-list li {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+        .tech-list li:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.8);
+            border-color: var(--primary-blue);
+        }
+        .tech-icon {
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+        .tech-content strong {
+            display: block;
+            color: var(--dark-blue);
+            margin-bottom: 4px;
+        }
+        .tech-content span, .tech-content a {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .tech-content a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .tech-content a:hover {
             text-decoration: underline;
         }
-
         @media (max-width: 600px) {
-            .content-wrapper {
-                margin-top: 60px;
-                padding: 30px 15px;
-            }
             .content-page {
-                padding: 1.5rem;
+                padding: 30px 20px;
+                width: 95%;
             }
             .content-page h1 {
                 font-size: 1.8rem;
             }
-            .content-page h2 {
-                font-size: 1.5rem;
+            .tech-list {
+                grid-template-columns: 1fr;
             }
         }
     </style>
-    </head>
+</head>
 <body>
-
+    <div class="background-ornaments">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
     <header>
-        <nav class="navbar">
-            <a href="index.html" class="nav-brand">DeteksiHoaks</a>
-            <button class="hamburger-menu" id="hamburger-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <div class="nav-links" id="nav-links">
-                <a href="index.html">Beranda</a>
-                <a href="deteksi.html">Deteksi</a>
-                <a href="petunjuk.html">Petunjuk</a> 
-                <a href="tentang.html" class="active">Tentang</a> </div>
-        </nav>
+      <nav class="navbar glass-panel">
+        <a href="index.html" class="nav-brand">Deteksi<span class="highlight">Hoaks</span></a>
+        <button class="hamburger-menu" id="hamburger-menu">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </button>
+        <div class="nav-links" id="nav-links">
+            <a href="index.html">Beranda</a>
+            <a href="deteksi.html">Deteksi</a>
+            <a href="petunjuk.html">Petunjuk</a> 
+            <a href="tentang.html" class="active">Tentang</a>
+        </div>
+      </nav>
     </header>
-
-    <main class="content-wrapper">
-        <div class="container content-page">
+    <main class="about-wrapper">
+        <div class="content-page glass-card">
             <h1>Tentang Website</h1>
             
             <section class="about-section">
-                <h2>Latar Belakang</h2>
+                <h2>🚀 Latar Belakang</h2>
                 <p>
                     Maraknya penyebaran informasi palsu atau hoaks di media sosial dan platform digital telah menjadi perhatian serius di Indonesia. Hoaks tidak hanya meresahkan masyarakat, tetapi juga berpotensi mengancam stabilitas sosial dan politik. Proyek ini dibangun sebagai upaya untuk menyediakan alat bantu berbasis teknologi Natural Language Processing (NLP) yang dapat membantu pengguna melakukan verifikasi awal terhadap kebenaran sebuah berita.
                 </p>
             </section>
             
             <section class="about-section">
-                <h2>Teknologi yang Digunakan</h2>
+                <h2>🛠️ Teknologi yang Digunakan</h2>
                 <p>
-                    Aplikasi ini ditenagai oleh model machine learning yang canggih untuk menganalisis teks berbahasa Indonesia. Berikut adalah teknologi (tech stack) utama yang digunakan:
+                    Aplikasi ini ditenagai oleh model machine learning yang canggih untuk menganalisis teks berbahasa Indonesia. Berikut adalah teknologi utama yang digunakan:
                 </p>
-                <ul>
-                    <li><strong>Model LLM:</strong> <a href="https://huggingface.co/indobenchmark/indobert-base-p1" target="_blank" rel="noopener noreferrer">IndoBERT</a> yang telah di fine-tuning pada dataset berita hoaks berbahasa Indonesia.</li>
-                    <li><strong>Backend:</strong> Flask (Python) untuk melayani API model dan menangani logika pemrosesan.</li>
-                    <li><strong>Frontend:</strong> HTML, CSS, dan JavaScript murni untuk membangun antarmuka pengguna yang interaktif dan responsif.</li>
+                <ul class="tech-list">
+                    <li>
+                        <div class="tech-icon">🤖</div>
+                        <div class="tech-content">
+                            <strong>Model LLM</strong>
+                            <span><a href="https://huggingface.co/indobenchmark/indobert-base-p1" target="_blank">IndoBERT Base P1</a> (Fine-tuned)</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tech-icon">⚙️</div>
+                        <div class="tech-content">
+                            <strong>Backend API</strong>
+                            <span>Flask (Python) & PyTorch</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tech-icon">🎨</div>
+                        <div class="tech-content">
+                            <strong>Frontend</strong>
+                            <span>HTML5, CSS3 (Glassmorphism), Vanilla JS</span>
+                        </div>
+                    </li>
                 </ul>
             </section>
             
             <section class="about-section">
-                <h2>Tujuan Proyek</h2>
+                <h2>🎯 Tujuan Proyek</h2>
                 <p>
                     Tujuan utama dari pengembangan aplikasi ini adalah untuk memenuhi syarat kelulusan program studi, sekaligus memberikan kontribusi nyata dalam upaya literasi digital dan perlawanan terhadap misinformasi di Indonesia.
                 </p>
             </section>
         </div>
     </main>
-
     <footer>
-        <div class="footer-container"> 
+        <div class="footer-container glass-panel-footer"> 
             <div class="footer-column">
-                <h3>DeteksiHoaks</h3>
-                <p>
-                    Proyek skripsi untuk mendeteksi potensi hoaks berbahasa Indonesia
-                    menggunakan teknologi Natural Language Processing (NLP). Dengan metode fine tuning terhadap model IndoBERT Base P1
-                </p>
+                <h3>Deteksi<span class="highlight">Hoaks</span></h3>
+                <p>Membangun ekosistem informasi digital Indonesia yang lebih sehat dan terpercaya dengan teknologi AI.</p>
             </div>
             <div class="footer-column">
-                <h3>Tautan Cepat</h3>
+                <h3>Navigasi</h3>
                 <ul>
                     <li><a href="index.html">Beranda</a></li>
                     <li><a href="deteksi.html">Deteksi</a></li>
-                    <li><a href="petunjuk.html">Petunjuk Penggunaan</a></li>
-                    <li><a href="tentang.html">Tentang Aplikasi</a></li>
+                    <li><a href="petunjuk.html">Petunjuk</a></li>
+                    <li><a href="tentang.html">Tentang</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h3>Informasi</h3>
-                <img src="assets/images/logo-fti.png" alt="Logo FTI Untar" class="footer-logo">
-                <p>
-                    <strong>Dosen Pembimbing:</strong><br>
-                     Viny Christanti Mawardi, M.Kom.<br>
-                     Irvan Lewenusa, M.Kom.
-                </p>
-                <p>
-                    <strong>Universitas Tarumanagara</strong><br>
-                    Jl. Letjen S. Parman No. 1<br>
-                    Jakarta Barat, 11440
-                </p>
+                <div class="uni-info">
+                    <img src="assets/images/logo-fti.png" alt="Logo FTI Untar" class="footer-logo">
+                    <div>
+                        <p><strong>Dosen Pembimbing:</strong><br>Viny Christanti Mawardi, M.Kom.<br>Irvan Lewenusa, M.Kom.</p>
+                        <p style="margin-top: 10px;"><strong>Universitas Tarumanagara</strong><br>Jl. Letjen S. Parman No. 1<br>Jakarta Barat, 11440</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>©2025 Henokh Mikhael Kristiantan - 535220154</p>
+            <p>© 2025 Henokh Mikhael Kristiantan - 535220154</p>
         </div>
     </footer>
-
     <script src="assets/js/script.js"></script>
 </body>
 </html>

@@ -10,6 +10,70 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="assets/css/style.css" />
+
+    <style>
+        @media (max-width: 900px) {
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .hero-text {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .hero-visual {
+                width: 100%;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                margin-top: 10px;
+            }
+
+            .visual-card {
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                transform: none !important;
+                width: 100%;
+                max-width: 320px;
+                margin: 0;
+                animation: none !important;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+
+            .main-visual {
+                order: 1;
+                transform: translate(0, 0) !important;
+                margin-bottom: 10px;
+            }
+
+            .float-1 { order: 2; }
+            .float-2 { order: 3; }
+            .float-3 { order: 4; }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -38,10 +102,10 @@
         <section class="hero-container">
             
             <div class="hero-text">
-                <div class="badge-new">✨ Versi Terbaru IndoBERT</div>
+                <div class="badge-new">✨Fine Tuned IndoBERT</div>
                 <h1>Lawan Disinformasi dengan <span class="text-gradient">Kecerdasan Buatan</span></h1>
                 <p>
-                    Analisis berita secara cerdas menggunakan teknologi <strong>Deep Learning IndoBERT</strong> yang telah dilatih khusus. Identifikasi dini informasi yang meragukan sebelum Anda mempercayai atau menyebarkannya.
+                    Analisis berita secara cerdas menggunakan teknologi <strong>LLM IndoBERT</strong> yang telah dilatih khusus. Identifikasi dini informasi yang meragukan sebelum Anda mempercayai atau menyebarkannya.
                 </p>
                 <div class="hero-buttons">
                     <a href="deteksi.html" class="btn-primary-glass large">🚀 Mulai Analisis Sekarang</a>
